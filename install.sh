@@ -38,23 +38,17 @@ echo -e "${BLUE}✅ Verifying Node.js installation...${NC}"
 node --version
 npm --version
 
-# Clone or setup the application
-if [ -d "/opt/veepn" ]; then
-    echo -e "${YELLOW}⚠️  Veepn directory already exists. Updating...${NC}"
-    cd /opt/veepn
-    git pull origin main
+# Setup the application in current directory
+echo -e "${BLUE}📁 Setting up application in current directory...${NC}"
+
+# Check if package.json exists in current directory
+if [ -f "package.json" ]; then
+    echo -e "${GREEN}✅ Application files found in current directory${NC}"
+    APP_DIR=$(pwd)
 else
-    echo -e "${BLUE}📁 Creating application directory...${NC}"
-    mkdir -p /opt/veepn
-    cd /opt/veepn
-    
-    # If this is a git clone, copy files
-    if [ -f "package.json" ]; then
-        echo -e "${GREEN}✅ Application files found${NC}"
-    else
-        echo -e "${RED}❌ Application files not found. Please ensure package.json exists.${NC}"
-        exit 1
-    fi
+    echo -e "${RED}❌ Application files not found. Please ensure package.json exists in current directory.${NC}"
+    echo -e "${YELLOW}💡 Make sure you're running this script from the veepn directory${NC}"
+    exit 1
 fi
 
 # Install Node.js dependencies
@@ -74,7 +68,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/veepn
+WorkingDirectory=$APP_DIR
 ExecStart=/usr/bin/node server.js
 Restart=always
 RestartSec=10
