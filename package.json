@@ -1,0 +1,23 @@
+{
+  "name": "veepn-server",
+  "version": "1.0.0",
+  "description": "Automated Xray VLESS Reality VPN Server with QR Code Generation",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": ["vpn", "xray", "vless", "reality", "v2ray"],
+  "author": "egzakutacno",
+  "license": "MIT",
+  "dependencies": {
+    "qrcode-terminal": "^0.12.0",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
